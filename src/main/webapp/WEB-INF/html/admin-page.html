@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee page</title>
+</head>
+<body>
+<table border="1">
+    <col width="200">
+    <col width="300">
+    <col width="200">
+    <col width="100">
+    <tr>
+        <td th:text="${employee.surname} + ' ' + ${#strings.substring(employee.firstname,0,1)} + '. ' + ${#strings.substring(employee.middlename,0,1)} + '.'"/>
+        <td align="right" colspan="3" th:text="'Отдел: ' + ${employee.department} + ' | Должность: ' + ${employee.position}"/>
+    </tr>
+    <tr>
+        <td colspan="4">Some admins actions that will be realized in future.</td>
+    </tr>
+</table>
+</body>
+</html>

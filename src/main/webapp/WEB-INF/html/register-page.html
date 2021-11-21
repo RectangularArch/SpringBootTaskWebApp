@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+<!--<form th:method="POST" th:action="@{/register}">-->
+<!--    <label for="username">Enter username: </label>-->
+<!--    <input type="text" th:field="${newUser.username}" id="username"/>-->
+<!--    <br/>-->
+<!--    <label for="password">Enter password: </label>-->
+<!--    <input type="text" th:field="${newUser.password}" id="password"/>-->
+<!--    <br/>-->
+<!--    <label for="passwordConfirmation">Confirm password: </label>-->
+<!--    <input type="text" th:field="${newUser.passwordConfirmation}" id="passwordConfirmation"/>-->
+<!--    <br/>-->
+<!--    <label for="firstname">Enter firstname: </label>-->
+<!--    <input type="text" th:field="${newEmployee.firstname}" id="firstname"/>-->
+<!--    <br/>-->
+<!--    <label for="surname">Enter firstname: </label>-->
+<!--    <input type="text" th:field="${newEmployee.surname}" id="surname"/>-->
+<!--    <br/>-->
+<!--    <label for="middlename">Enter firstname: </label>-->
+<!--    <input type="text" th:field="${newEmployee.middlename}" id="middlename"/>-->
+<!--    <br/>-->
+<!--    <label for="department">Enter firstname: </label>-->
+<!--    <input type="text" th:field="${newEmployee.department}" id="department"/>-->
+<!--    <br/>-->
+<!--    <label for="position">Enter firstname: </label>-->
+<!--    <input type="text" th:field="${newEmployee.position}" id="position"/>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Create!"/>-->
+<!--</form>-->
+<form th:method="POST" th:action="@{/register}">
+    <div align="center" style='width:500px'>Добавление нового пользователя</div><br/>
+    <br/>
+    <label style='width:200px' for="username">Логин пользователя: </label>
+    <input style='width:300px' type="text" th:field="${newUser.username}" id="username"/>
+    <br/>
+    <label style='width:200px' for="password">Пароль: </label>
+    <input style='width:300px' type="text" th:field="${newUser.password}" id="password"/>
+    <br/>
+    <label style='width:200px' for="passwordConfirmation">Подтверждение пароля: </label>
+    <input style='width:300px' type="text" th:field="${newUser.passwordConfirmation}" id="passwordConfirmation"/>
+    <br/>
+    <label style='width:200px' for="firstname">Имя: </label>
+    <input style='width:300px' type="text" th:field="${newEmployee.firstname}" id="firstname"/>
+    <br/>
+    <label style='width:200px' for="surname">Фамилия: </label>
+    <input style='width:300px' type="text" th:field="${newEmployee.surname}" id="surname"/>
+    <br/>
+    <label style='width:200px' for="middlename">Отчество: </label>
+    <input style='width:300px' type="text" th:field="${newEmployee.middlename}" id="middlename"/>
+    <br/>
+    <label style='width:200px' for="department">Департамент: </label>
+    <input style='width:300px' type="text" th:field="${newEmployee.department}" id="department"/>
+    <br/>
+    <label style='width:200px' for="position">Должность: </label>
+    <input style='width:300px' type="text" th:field="${newEmployee.position}" id="position"/>
+    <br/>
+    <input style='width:200px' type="submit" value="Добавить"/>
+</form>
+</body>
+</html>
