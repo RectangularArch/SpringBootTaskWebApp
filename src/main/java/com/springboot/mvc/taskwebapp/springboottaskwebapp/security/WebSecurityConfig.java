@@ -10,7 +10,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -48,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
 //                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index-page", "/css/*", "/js/*").permitAll()
@@ -59,7 +62,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/employee", true)
                 .and()
-                .logout().permitAll()
-                .logoutSuccessUrl("/login");
+                .logout()
+                .logoutSuccessUrl("/login")
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .permitAll();
     }
 }

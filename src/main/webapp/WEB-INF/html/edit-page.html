@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/{id}/edit(id=${user.getId()})}">
+    <div align="center" style='width:500px'>Добавление нового пользователя</div><br/>
+    <br/>
+    <label style='width:200px' for="username">Логин пользователя: </label>
+    <input style='width:300px' type="text" th:field="${user.username}" id="username"/>
+    <br/>
+    <label style='width:200px' for="password">Текущий пароль: </label>
+    <input style='width:300px' type="text" th:field="${user.password}" id="password"/>
+    <br/>
+    <label style='width:200px' for="passwordConfirmation">Новый пароль: </label>
+    <input style='width:300px' type="text" th:field="${user.passwordConfirmation}" id="passwordConfirmation"/>
+    <br/>
+    <label style='width:200px' for="firstname">Имя: </label>
+    <input style='width:300px' type="text" th:field="${employee.firstname}" id="firstname"/>
+    <br/>
+    <label style='width:200px' for="surname">Фамилия: </label>
+    <input style='width:300px' type="text" th:field="${employee.surname}" id="surname"/>
+    <br/>
+    <label style='width:200px' for="middlename">Отчество: </label>
+    <input style='width:300px' type="text" th:field="${employee.middlename}" id="middlename"/>
+    <br/>
+    <label style='width:200px' for="department">Департамент: </label>
+    <input style='width:300px' type="text" th:field="${employee.department}" id="department"/>
+    <br/>
+    <label style='width:200px' for="position">Должность: </label>
+    <input style='width:300px' type="text" th:field="${employee.position}" id="position"/>
+    <br/>
+    <input style='width:200px' type="submit" value="Изменить"/>
+</form>
+</body>
+</html>

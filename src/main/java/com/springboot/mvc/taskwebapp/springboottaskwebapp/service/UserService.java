@@ -15,4 +15,6 @@ public interface UserService extends UserDetailsService {
 
     public void save(UserEntity user);
     public UserEntity findByUsername(String username);
+    public UserEntity findById(int id);
+
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All employees</title>
+</head>
+<body>
+<table border="1">
+    <col width="200">
+    <col width="100">
+    <col width="250">
+    <col width="250">
+    <col width="200">
+    <tr>
+        <th>ФИО</th>
+        <th>Отдел</th>
+        <th>Должность</th>
+        <th>Список текущих задач</th>
+    </tr>
+    <tr th:each="item : ${allEmployees}">
+        <td th:text="${item.surname} + ' ' + ${#strings.substring(item.firstname,0,1)} + '. ' + ${#strings.substring(item.middlename,0,1)} + '.'"/>
+        <td align="left" th:text="${item.department}"/>
+        <td align="left" th:text="${item.position}"/>
+        <td align="center">
+            <a th:href="@{/logout}">&#9660</a>
+        </td>
+        <td align="center">
+            <a th:href="@{/{id}/edit(id=${item.getId()})}">> edit <</a>
+            |
+            <a th:href="@{/logout}">> delete <</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

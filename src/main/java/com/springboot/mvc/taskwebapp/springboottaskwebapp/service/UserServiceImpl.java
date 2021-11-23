@@ -73,4 +73,9 @@ public class UserServiceImpl implements UserService{
     public UserEntity getApplicationUser(int id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public UserEntity findById(int id) {
+        return userRepository.findById(id);
+    }
 }
