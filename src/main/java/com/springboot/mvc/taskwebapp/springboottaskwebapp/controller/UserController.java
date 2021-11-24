@@ -2,6 +2,7 @@ package com.springboot.mvc.taskwebapp.springboottaskwebapp.controller;
 
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.authentification.ApplicationUserDetails;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.entity.EmployeeEntity;
+import com.springboot.mvc.taskwebapp.springboottaskwebapp.entity.TaskEntity;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.entity.UserEntity;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.EmployeeService;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.SecurityService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -41,7 +43,7 @@ public class UserController {
         UserEntity user = (UserEntity) userService.loadUserByUsername(principal.getName());
 
         if (user.getAuthorities().equals(userService.getApplicationUser(1).getAuthorities())) {
-            return "redirect:/admin";
+            return "redirect:/admin/employee";
         }
 
         EmployeeEntity employee = user.getEmployee();
@@ -50,9 +52,105 @@ public class UserController {
         return "employee-page";
     }
 
+    @GetMapping("/employee/{id}/tasks")
+    public String showAllEmployeeTasks(Model model, @PathVariable("id") int id) {
+        UserEntity user = userService.findById(id);
+        List<TaskEntity> allTasks = user.getEmployee().getTasks();
+        model.addAttribute("allTasks", allTasks);
+        return "all-tasks-page";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editUser(Model model, @PathVariable("id") int id) {
+
+        model.addAttribute("user", userService.findById(id));
+        model.addAttribute("employee", employeeService.getEmployee(id));
+
+        return "edit-user-page";
+    }
+
+    @PatchMapping("/{id}/edit")
+    public String editUser(@PathVariable("id") int id,
+                           @ModelAttribute(value = "newUser") UserEntity newUser,
+                           BindingResult bindingResultNewUser,
+                           @ModelAttribute(value = "newEmployee") EmployeeEntity newEmployee,
+                           BindingResult bindingResultNewEmployee) {
+        //userValidator.validate(newUser, bindingResult);
+
+        if (bindingResultNewUser.hasErrors() || bindingResultNewEmployee.hasErrors()) {
+            return "redirect:/{id}/edit";
+        }
+
+        newUser.setEmployee(newEmployee);
+
+        employeeService.saveEmployee(newEmployee);
+        userService.save(newUser);
+
+        //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
+
+        return "redirect:/employees";
+    }
+
+    @GetMapping("/{id}/tasks")
+    public String addTaskToEmployee(Model model, @PathVariable("id") int id) {
+        model.addAttribute("task", new TaskEntity());
+        model.addAttribute("employee", employeeService.getEmployee(id));
+        return "new-task-page";
+    }
+
+    @PostMapping("/{employeeId}/tasks")
+    public String addTaskToEmployee(@ModelAttribute(value = "task") TaskEntity newTask,
+                           BindingResult bindingResultNewTask,
+                                    @PathVariable("employeeId") int employeeId,
+                                    Model model) {
+        //userValidator.validate(newUser, bindingResult);
+
+        if (bindingResultNewTask.hasErrors()) {
+            return "redirect:/{employeeId}/tasks";
+        }
+        newTask.setEmployee(employeeService.getEmployee(employeeId));
+        taskService.saveTask(newTask);
+
+        //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
+
+        return "redirect:/employee/{employeeId}/tasks";
+    }
+
+    @GetMapping("/tasks/{id}/edit")
+    public String editEmployeeTask(Model model, @PathVariable("id") int id) {
+
+        model.addAttribute("task", taskService.getTask(id));
+
+        return "edit-task-page";
+    }
+
+    @PatchMapping("/tasks/{id}/edit")
+    public String editEmployeeTask(@PathVariable("id") int id,
+                                   @ModelAttribute(value = "task") TaskEntity newTask,
+                                   BindingResult bindingResultNewTask) {
+        //userValidator.validate(newUser, bindingResult);
+        int employeeId;
+        if (bindingResultNewTask.hasErrors()) {
+            return "redirect:/tasks/{id}/edit";
+        }
+        TaskEntity task = taskService.getTask(id);
+        newTask.setEmployee(task.getEmployee());
+        employeeId = task.getEmployee().getId();
+        taskService.saveTask(newTask);//securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
+
+        return "redirect:/employee/" + employeeId + "/tasks";
+    }
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/employees";
+    }
+
+    @DeleteMapping ("/tasks/{id}")
+    public String deleteTask(@PathVariable int id) {
+        int employeeId = taskService.getTask(id).getEmployee().getId();
+        taskService.deleteTask(id);
+        return "redirect:/employee/" + employeeId + "/tasks";
     }
 }

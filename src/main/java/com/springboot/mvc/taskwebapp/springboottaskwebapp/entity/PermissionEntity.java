@@ -14,7 +14,7 @@ public class PermissionEntity {
     @Column(name = "permission")
     private String permission;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(/*cascade = CascadeType.ALL, */fetch = FetchType.EAGER)
     @JoinTable(name = "role_permission",
             joinColumns = @JoinColumn(name = "permission_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

@@ -18,7 +18,7 @@ public class TaskEntity {
     @Column(name = "status")
     private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(/*cascade = CascadeType.ALL, */)
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employee;
 

@@ -6,22 +6,23 @@
 </head>
 <body>
 <table border="1">
-    <col width="200">
+    <col width="150">
     <col width="100">
+    <col width="260">
     <col width="250">
-    <col width="250">
-    <col width="100">
-    <col width="100">
+    <col width="80">
+    <col width="80">
+    <col width="80">
     <tr>
-        <td align="right" colspan="6"><a th:href="@{/logout}">> logout <</a></td>
+        <td align="right" colspan="7"><a th:href="@{/logout}">> logout <</a></td>
     </tr>
     <tr>
-        <td align="center" colspan="6">
+        <td align="center" colspan="7">
             <a th:href="@{/employee}">Мой профиль</a>
             |
             <a th:href="@{/register}">Добавить пользователя</a>
             |
-            <a th:href="@{/logout}">Список задач</a>
+            <a th:href="@{/tasks}">Список всех задач</a>
         </td>
     </tr>
     <tr>
@@ -35,16 +36,21 @@
         <td align="left" th:text="${item.department}"/>
         <td align="left" th:text="${item.position}"/>
         <td align="center">
-            <a th:href="@{/logout}">&#9660</a>
+            <a th:href="@{/employee/{id}/tasks(id=${item.getId()})}">&#9660</a>
+        </td>
+        <td>
+            <form th:method="GET" th:action="@{/{id}/tasks(id=${item.getId()})}">
+                <input style='width:80px' type="submit" value="> add <"/>
+            </form>
         </td>
         <td>
             <form th:method="GET" th:action="@{/{id}/edit(id=${item.getId()})}">
-                <input style='width:100px' type="submit" value="> edit <"/>
+                <input style='width:80px' type="submit" value="> edit <"/>
             </form>
         </td>
         <td>
             <form th:method="DELETE" th:action="@{/{id}(id=${item.getId()})}">
-                <input style='width:100px' type="submit" value="> delete <"/>
+                <input style='width:80px' type="submit" value="> delete <"/>
             </form>
         </td>
     </tr>

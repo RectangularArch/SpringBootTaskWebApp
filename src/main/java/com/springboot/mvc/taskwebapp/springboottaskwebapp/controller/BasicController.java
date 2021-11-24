@@ -49,36 +49,6 @@ public class BasicController {
         return "redirect:/employees";
     }
 
-    @GetMapping("/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") int id) {
-
-        model.addAttribute("user", userService.findById(id));
-        model.addAttribute("employee", employeeService.getEmployee(id));
-
-        return "edit-page";
-    }
-
-    @PatchMapping("/{id}/edit")
-    public String editUser(@ModelAttribute(value = "newUser") UserEntity newUser,
-                                                  BindingResult bindingResultNewUser,
-                                                  @ModelAttribute(value = "newEmployee") EmployeeEntity newEmployee,
-                                                  BindingResult bindingResultNewEmployee) {
-        //userValidator.validate(newUser, bindingResult);
-
-        if (bindingResultNewUser.hasErrors() || bindingResultNewEmployee.hasErrors()) {
-            return "redirect:/{id}/edit";
-        }
-
-        newUser.setEmployee(newEmployee);
-
-        employeeService.saveEmployee(newEmployee);
-        userService.save(newUser);
-
-        //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
-
-        return "redirect:/employees";
-    }
-
     @GetMapping("/login")
     public String login(Model model, String err, String logout) {
         if (err != null) {
