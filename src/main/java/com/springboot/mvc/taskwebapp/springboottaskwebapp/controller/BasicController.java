@@ -20,7 +20,7 @@ public class BasicController {
 
     @GetMapping("/")
     public String getIndex() {
-        return "index-page";
+        return "login-page";
     }
 
     @GetMapping("/register")
@@ -46,7 +46,7 @@ public class BasicController {
 
         //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
 
-        return "redirect:index-view";
+        return "redirect:/employees";
     }
 
     @GetMapping("/{id}/edit")
@@ -76,7 +76,7 @@ public class BasicController {
 
         //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
 
-        return "redirect:index-view";
+        return "redirect:/employees";
     }
 
     @GetMapping("/login")

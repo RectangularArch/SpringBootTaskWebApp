@@ -5,61 +5,62 @@
     <title>New person</title>
 </head>
 <body>
-<!--<form th:method="POST" th:action="@{/register}">-->
-<!--    <label for="username">Enter username: </label>-->
-<!--    <input type="text" th:field="${newUser.username}" id="username"/>-->
-<!--    <br/>-->
-<!--    <label for="password">Enter password: </label>-->
-<!--    <input type="text" th:field="${newUser.password}" id="password"/>-->
-<!--    <br/>-->
-<!--    <label for="passwordConfirmation">Confirm password: </label>-->
-<!--    <input type="text" th:field="${newUser.passwordConfirmation}" id="passwordConfirmation"/>-->
-<!--    <br/>-->
-<!--    <label for="firstname">Enter firstname: </label>-->
-<!--    <input type="text" th:field="${newEmployee.firstname}" id="firstname"/>-->
-<!--    <br/>-->
-<!--    <label for="surname">Enter firstname: </label>-->
-<!--    <input type="text" th:field="${newEmployee.surname}" id="surname"/>-->
-<!--    <br/>-->
-<!--    <label for="middlename">Enter firstname: </label>-->
-<!--    <input type="text" th:field="${newEmployee.middlename}" id="middlename"/>-->
-<!--    <br/>-->
-<!--    <label for="department">Enter firstname: </label>-->
-<!--    <input type="text" th:field="${newEmployee.department}" id="department"/>-->
-<!--    <br/>-->
-<!--    <label for="position">Enter firstname: </label>-->
-<!--    <input type="text" th:field="${newEmployee.position}" id="position"/>-->
-<!--    <br/>-->
-<!--    <input type="submit" value="Create!"/>-->
-<!--</form>-->
 <form th:method="POST" th:action="@{/register}">
-    <div align="center" style='width:500px'>Добавление нового пользователя</div><br/>
-    <br/>
-    <label style='width:200px' for="username">Логин пользователя: </label>
-    <input style='width:300px' type="text" th:field="${newUser.username}" id="username"/>
-    <br/>
-    <label style='width:200px' for="password">Пароль: </label>
-    <input style='width:300px' type="text" th:field="${newUser.password}" id="password"/>
-    <br/>
-    <label style='width:200px' for="passwordConfirmation">Подтверждение пароля: </label>
-    <input style='width:300px' type="text" th:field="${newUser.passwordConfirmation}" id="passwordConfirmation"/>
-    <br/>
-    <label style='width:200px' for="firstname">Имя: </label>
-    <input style='width:300px' type="text" th:field="${newEmployee.firstname}" id="firstname"/>
-    <br/>
-    <label style='width:200px' for="surname">Фамилия: </label>
-    <input style='width:300px' type="text" th:field="${newEmployee.surname}" id="surname"/>
-    <br/>
-    <label style='width:200px' for="middlename">Отчество: </label>
-    <input style='width:300px' type="text" th:field="${newEmployee.middlename}" id="middlename"/>
-    <br/>
-    <label style='width:200px' for="department">Департамент: </label>
-    <input style='width:300px' type="text" th:field="${newEmployee.department}" id="department"/>
-    <br/>
-    <label style='width:200px' for="position">Должность: </label>
-    <input style='width:300px' type="text" th:field="${newEmployee.position}" id="position"/>
-    <br/>
-    <input style='width:200px' type="submit" value="Добавить"/>
+    <table border="1">
+        <col width="250">
+        <col width="250">
+        <col width="500">
+        <tr>
+            <td align="right" colspan="4"><a th:href="@{/logout}">> logout <</a></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <a th:href="@{/employee}">Мой профиль</a>
+                |
+                <a th:href="@{/employees}">Список пользователей</a>
+                |
+                <a th:href="@{/logout}">Список задач</a>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">Добавление нового пользователя</td>
+        </tr>
+        <tr>
+            <td><label for="username">Логин пользователя: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newUser.username}" id="username"/></td>
+        </tr>
+        <tr>
+            <td><label for="password">Пароль: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newUser.password}" id="password"/></td>
+        </tr>
+        <tr>
+            <td><label for="passwordConfirmation">Пароль еще раз: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newUser.passwordConfirmation}" id="passwordConfirmation"/></td>
+        </tr>
+        <tr>
+            <td><label for="firstname">Имя: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newEmployee.firstname}" id="firstname"/></td>
+        </tr>
+        <tr>
+            <td><label for="surname">Фамилия: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newEmployee.surname}" id="surname"/></td>
+        </tr>
+        <tr>
+            <td><label for="middlename">Отчество: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newEmployee.middlename}" id="middlename"/></td>
+        </tr>
+        <tr>
+            <td><label for="department">Департамент: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newEmployee.department}" id="department"/></td>
+        </tr>
+        <tr>
+            <td><label for="position">Должность: </label></td>
+            <td><input style='width:250px' type="text" th:field="${newEmployee.position}" id="position"/></td>
+        </tr>
+        <tr>
+            <td><input style='width:250px' type="submit" value="Добавить"/></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
