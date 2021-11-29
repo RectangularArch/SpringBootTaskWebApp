@@ -8,7 +8,6 @@ import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.EmployeeServic
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.SecurityService;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.TaskService;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.UserService;
-import com.springboot.mvc.taskwebapp.springboottaskwebapp.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +34,6 @@ public class UserController {
 
     @Autowired
     private SecurityService securityService;
-
-    @Autowired
-    private UserValidator userValidator;
 
     @GetMapping("/employee")
     public String getEmployee(Model model, @Autowired Principal principal) {
@@ -71,20 +68,21 @@ public class UserController {
 
     @PatchMapping("/{id}/edit")
     public String editUser(@PathVariable("id") int id,
-                           @ModelAttribute(value = "newUser") UserEntity newUser,
+                           @ModelAttribute(value = "user") @Valid UserEntity user,
                            BindingResult bindingResultNewUser,
-                           @ModelAttribute(value = "newEmployee") EmployeeEntity newEmployee,
+                           @ModelAttribute(value = "employee") @Valid EmployeeEntity employee,
                            BindingResult bindingResultNewEmployee) {
         //userValidator.validate(newUser, bindingResult);
 
         if (bindingResultNewUser.hasErrors() || bindingResultNewEmployee.hasErrors()) {
-            return "redirect:/{id}/edit";
+            return "edit-user-page";
+            //return "redirect:/{id}/edit";
         }
 
-        newUser.setEmployee(newEmployee);
+        user.setEmployee(employee);
 
-        employeeService.saveEmployee(newEmployee);
-        userService.save(newUser);
+        employeeService.saveEmployee(employee);
+        userService.save(user);
 
         //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
 
@@ -99,14 +97,14 @@ public class UserController {
     }
 
     @PostMapping("/{employeeId}/tasks")
-    public String addTaskToEmployee(@ModelAttribute(value = "task") TaskEntity newTask,
+    public String addTaskToEmployee(@ModelAttribute(value = "task") @Valid TaskEntity newTask,
                            BindingResult bindingResultNewTask,
-                                    @PathVariable("employeeId") int employeeId,
-                                    Model model) {
+                                    @PathVariable("employeeId") int employeeId, Model model) {
         //userValidator.validate(newUser, bindingResult);
 
         if (bindingResultNewTask.hasErrors()) {
-            return "redirect:/{employeeId}/tasks";
+            model.addAttribute("employee", employeeService.getEmployee(employeeId));
+            return "new-task-page";
         }
         newTask.setEmployee(employeeService.getEmployee(employeeId));
         taskService.saveTask(newTask);
@@ -120,18 +118,16 @@ public class UserController {
     public String editEmployeeTask(Model model, @PathVariable("id") int id) {
 
         model.addAttribute("task", taskService.getTask(id));
-
         return "edit-task-page";
     }
 
     @PatchMapping("/tasks/{id}/edit")
     public String editEmployeeTask(@PathVariable("id") int id,
-                                   @ModelAttribute(value = "task") TaskEntity newTask,
+                                   @ModelAttribute(value = "task") @Valid TaskEntity newTask,
                                    BindingResult bindingResultNewTask) {
-        //userValidator.validate(newUser, bindingResult);
         int employeeId;
         if (bindingResultNewTask.hasErrors()) {
-            return "redirect:/tasks/{id}/edit";
+            return "edit-task-page";
         }
         TaskEntity task = taskService.getTask(id);
         newTask.setEmployee(task.getEmployee());

@@ -1,6 +1,8 @@
 package com.springboot.mvc.taskwebapp.springboottaskwebapp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +13,30 @@ public class EmployeeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int Id;
+
     @Column(name = "firstname")
+    @NotBlank(message = "{Required}")
+    @Size(min = 4, message = "{Size.employeeEntity.firstname}")
     private String firstname;
+
     @Column(name = "surname")
+    @NotBlank(message = "{Required}")
+    @Size(min = 2, message = "{Size.employeeEntity.surname}")
     private String surname;
+
     @Column(name = "middlename")
+    @NotBlank(message = "{Required}")
+    @Size(min = 4, message = "{Size.employeeEntity.middlename}")
     private String middlename;
+
     @Column(name = "department")
+    @NotBlank(message = "{Required}")
+    @Size(min = 2, message = "{Size.employeeEntity.department}")
     private String department;
+
     @Column(name = "position")
+    @NotBlank(message = "{Required}")
+    @Size(min = 4, message = "{Size.employeeEntity.position}")
     private String position;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")

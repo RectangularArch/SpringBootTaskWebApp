@@ -15,11 +15,11 @@
     </tr>
     <tr>
         <td align="center" colspan="4">
-            <a th:href="@{/register}">Добавить пользователя</a>
+            <a th:href="@{/register}">Add user</a>
             |
-            <a th:href="@{/employees}">Список пользователей</a>
+            <a th:href="@{/employees}">User list</a>
             |
-            <a th:href="@{/tasks}">Список всех задач</a>
+            <a th:href="@{/tasks}">All tasks</a>
         </td>
     </tr>
     <tr>
@@ -27,10 +27,10 @@
     </tr>
     <tr>
         <td th:text="${employee.surname} + ' ' + ${#strings.substring(employee.firstname,0,1)} + '. ' + ${#strings.substring(employee.middlename,0,1)} + '.'"/>
-        <td align="right" colspan="3" th:text="'Отдел: ' + ${employee.department} + ' | Должность: ' + ${employee.position}"/>
+        <td align="right" colspan="3" th:text="'Department: ' + ${employee.department} + ' | Position: ' + ${employee.position}"/>
     </tr>
     <tr>
-        <td>Мои задачи</td>
+        <td>My tasks</td>
     </tr>
     <tr th:each="item : ${employee.tasks}">
         <td th:text="${item.head}"/>

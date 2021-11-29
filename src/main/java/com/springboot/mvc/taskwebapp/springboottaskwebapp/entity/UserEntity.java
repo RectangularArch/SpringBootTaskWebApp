@@ -1,11 +1,13 @@
 package com.springboot.mvc.taskwebapp.springboottaskwebapp.entity;
 
-import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.RoleServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -18,10 +20,17 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "username")
+    @NotBlank(message = "{Required}")
+    @Size(min = 4, max = 32, message = "{Size.userEntity.username}")
     private String username;
+
     @Column(name = "password")
+    @NotBlank(message = "{Required}")
+    @Size(min = 4, message = "{Size.userEntity.password}")
     private String password;
+
     @Column(name = "is_account_non_expired")
     private boolean isAccountNonExpired;
     @Column(name = "is_account_non_locked")
@@ -30,7 +39,9 @@ public class UserEntity implements UserDetails {
     private boolean isCredentialsNonExpired;
     @Column(name = "is_enabled")
     private boolean isEnabled;
+
     @Transient
+    //@NotBlank(message = "{Required}")
     private String passwordConfirmation;
 
     //-----------

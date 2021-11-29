@@ -15,52 +15,76 @@
         </tr>
         <tr>
             <td align="center" colspan="3">
-                <a th:href="@{/employee}">Мой профиль</a>
+                <a th:href="@{/employee}">My profile</a>
                 |
-                <a th:href="@{/register}">Добавить пользователя</a>
+                <a th:href="@{/register}">Add user</a>
                 |
-                <a th:href="@{/employees}">Список пользователей</a>
+                <a th:href="@{/employees}">User list</a>
                 |
-                <a th:href="@{/tasks}">Список всех задач</a>
+                <a th:href="@{/tasks}">All tasks</a>
             </td>
         </tr>
         <tr>
-            <td align="center" colspan="3">Изменить пользователя</td>
+            <td align="center" colspan="3">Edit user profile</td>
         </tr>
         <tr>
-            <td><label for="username">Логин пользователя: </label></td>
-            <td><input style='width:250px' type="text" th:field="${user.username}" id="username"/></td>
+            <td><label for="username">User login: </label></td>
+            <td>
+                <input style='width:250px' type="text" th:field="${user.username}" id="username"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}">User login errors</div>
+            </td>
         </tr>
         <tr>
-            <td><label for="password">Текущий пароль: </label></td>
-            <td><input style='width:250px' type="text" th:field="${user.password}" id="password"/></td>
+            <td><label for="password">New password: </label></td>
+            <td>
+                <input style='width:250px' type="password" th:field="${user.password}" id="password"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}">User password errors</div>
+            </td>
         </tr>
         <tr>
-            <td><label for="passwordConfirmation">Новый пароль: </label></td>
-            <td><input style='width:250px' type="text" th:field="${user.passwordConfirmation}" id="passwordConfirmation"/></td>
+            <td><label for="passwordConfirmation">New password again: </label></td>
+            <td>
+                <input style='width:250px' type="password" th:field="${user.passwordConfirmation}" id="passwordConfirmation"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('user.passwordConfirmation')}" th:errors="*{user.passwordConfirmation}">User password errors</div>
+            </td>
         </tr>
         <tr>
-            <td><label for="firstname">Имя: </label></td>
-            <td><input style='width:250px' type="text" th:field="${employee.firstname}" id="firstname"/></td>
+            <td><label for="firstname">Name: </label></td>
+            <td>
+                <input style='width:250px' type="text" th:field="${employee.firstname}" id="firstname"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('employee.firstname')}" th:errors="*{employee.firstname}">User password errors</div>
+            </td>
         </tr>
         <tr>
-            <td><label for="surname">Фамилия: </label></td>
-            <td><input style='width:250px' type="text" th:field="${employee.surname}" id="surname"/></td>
+            <td><label for="surname">Surname: </label></td>
+            <td>
+                <input style='width:250px' type="text" th:field="${employee.surname}" id="surname"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('employee.surname')}" th:errors="*{employee.surname}">User password errors</div>
+            </td>
         </tr>
         <tr>
-            <td><label for="middlename">Отчество: </label></td>
-            <td><input style='width:250px' type="text" th:field="${employee.middlename}" id="middlename"/></td>
+            <td><label for="middlename">Middlename: </label></td>
+            <td>
+                <input style='width:250px' type="text" th:field="${employee.middlename}" id="middlename"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('employee.middlename')}" th:errors="*{employee.middlename}">User password errors</div>
+            </td>
         </tr>
         <tr>
-            <td><label for="department">Департамент: </label></td>
-            <td><input style='width:250px' type="text" th:field="${employee.department}" id="department"/></td>
+            <td><label for="department">Department: </label></td>
+            <td>
+                <input style='width:250px' type="text" th:field="${employee.department}" id="department"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('employee.department')}" th:errors="*{employee.department}">User password errors</div>
+            </td>
         </tr>
         <tr>
-            <td><label for="position">Должность: </label></td>
-            <td><input style='width:250px' type="text" th:field="${employee.position}" id="position"/></td>
+            <td><label for="position">Position: </label></td>
+            <td>
+                <input style='width:250px' type="text" th:field="${employee.position}" id="position"/>
+                <div style="color:red; font-size: small" th:if="${#fields.hasErrors('employee.position')}" th:errors="*{employee.position}">User password errors</div>
+            </td>
         </tr>
         <tr>
-            <td><input style='width:250px' type="submit" value="Изменить"/></td>
+            <td><input style='width:250px' type="submit" value="> Edit <"/></td>
         </tr>
     </table>
 </form>

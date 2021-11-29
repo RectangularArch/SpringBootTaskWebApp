@@ -18,18 +18,18 @@
     </tr>
     <tr>
         <td align="center" colspan="7">
-            <a th:href="@{/employee}">Мой профиль</a>
+            <a th:href="@{/employee}">My profile</a>
             |
-            <a th:href="@{/register}">Добавить пользователя</a>
+            <a th:href="@{/register}">Add user</a>
             |
-            <a th:href="@{/tasks}">Список всех задач</a>
+            <a th:href="@{/tasks}">All tasks</a>
         </td>
     </tr>
     <tr>
-        <th>ФИО</th>
-        <th>Отдел</th>
-        <th>Должность</th>
-        <th>Список текущих задач</th>
+        <th>Full name</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>Tasks</th>
     </tr>
     <tr th:each="item : ${allEmployees}">
         <td th:text="${item.surname} + ' ' + ${#strings.substring(item.firstname,0,1)} + '. ' + ${#strings.substring(item.middlename,0,1)} + '.'"/>

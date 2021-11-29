@@ -62,8 +62,8 @@ CREATE TABLE my_db.role_permission (
                                    );
 -- Insert basic data
 INSERT INTO my_db.employee VALUES (1, 'Андрей', 'Толстопятов', 'Олегович', 'IT', 'Системный администратор');
-INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Задача 1', 'Сделать что-то хорошее', 'Высокий', 'В работе', 1);
-INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Задача 2', 'Сделать что-то плохое', 'Низкий', 'В работе', 1);
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Задача 1', 'Сделать что-то хорошее', 'Low', 'In Progress', 1);
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Задача 2', 'Сделать что-то плохое', 'Low', 'In Progress', 1);
 INSERT INTO my_db.user VALUES (1, 'admin', '$2a$10$LaUT71g.ofUoHT1KAoL9iOcW2COnAU2G7rldUSt3PbbFZmg4BNOvm', 1, 1, 1, 1, 1);
 
 INSERT INTO my_db.role VALUES (1, 'ROLE_ADMIN');

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 public class BasicController {
     @Autowired
@@ -25,18 +27,18 @@ public class BasicController {
 
     @GetMapping("/register")
     public String registerNewUser(Model model) {
-        model.addAttribute("newUser", new UserEntity());
-        model.addAttribute("newEmployee", new EmployeeEntity());
+        model.addAttribute("user", new UserEntity());
+        model.addAttribute("employee", new EmployeeEntity());
 
         return "register-page";
     }
 
     @PostMapping("/register")
-    public String registerNewUser(@ModelAttribute(value = "newUser") UserEntity newUser, BindingResult bindingResultNewUser, @ModelAttribute(value = "newEmployee") EmployeeEntity newEmployee, BindingResult bindingResultNewEmployee) {
+    public String registerNewUser(@ModelAttribute(value = "user") @Valid UserEntity newUser, BindingResult bindingResultNewUser, @ModelAttribute(value = "employee") @Valid EmployeeEntity newEmployee, BindingResult bindingResultNewEmployee) {
         //userValidator.validate(newUser, bindingResult);
 
         if (bindingResultNewUser.hasErrors() || bindingResultNewEmployee.hasErrors()) {
-            return "redirect:/register";
+            return "register-page";
         }
 
         newUser.setEmployee(newEmployee);

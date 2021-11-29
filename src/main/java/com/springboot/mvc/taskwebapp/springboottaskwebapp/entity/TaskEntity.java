@@ -1,6 +1,9 @@
 package com.springboot.mvc.taskwebapp.springboottaskwebapp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "task")
@@ -9,10 +12,17 @@ public class TaskEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int Id;
+
     @Column(name = "header")
+    @NotBlank(message = "{Required}")
+    @Size(min = 4, max = 32, message = "{Size.taskEntity.name}")
     private String head;
+
     @Column(name = "body")
+    @NotBlank(message = "{Required}")
+    @Size(min = 4, max = 250, message = "{Size.taskEntity.description}")
     private String body;
+
     @Column(name = "priority")
     private String priority;
     @Column(name = "status")
