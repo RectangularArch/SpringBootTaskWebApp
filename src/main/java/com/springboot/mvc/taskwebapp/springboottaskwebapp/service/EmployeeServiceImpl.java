@@ -25,12 +25,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeEntity getEmployee(int id) {
-//        Employee employee = null;
-//        Optional<Employee> optional = employeeRepository.findById(id);
-//        if (optional.isPresent()) {
-//            employee = optional.get();
-//        }
-//        return employee;
         return employeeRepository.findById(id).orElse(null);
     }
 

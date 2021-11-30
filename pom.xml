@@ -50,13 +50,6 @@
             <scope>runtime</scope>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate.validator</groupId>-->
-<!--            <artifactId>hibernate-validator</artifactId>-->
-<!--            <version>6.2.0.Final</version>-->
-<!--        </dependency>-->
-
         <!--Guava is a suite of core and expanded libraries that include utility classes, Google's collections, I/O classes, and much more.-->
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>

@@ -22,9 +22,9 @@ public class AdminController {
     public String getAdmin(Model model, @Autowired Principal principal) {
         UserEntity user = (UserEntity) userService.loadUserByUsername(principal.getName());
 
-        if (!user.getAuthorities().equals(userService.getApplicationUser(1).getAuthorities())) {
-            return "redirect:/employee";
-        }
+//        if (!user.getAuthorities().equals(userService.getApplicationUser(1).getAuthorities())) {
+//            return "redirect:/employee";
+//        }
 
         EmployeeEntity employee = user.getEmployee();
         model.addAttribute("employee", employee);

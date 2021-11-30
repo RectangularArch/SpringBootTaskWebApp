@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:sec="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Admin page</title>
@@ -13,6 +14,8 @@
     <tr>
         <td align="right" colspan="4"><a th:href="@{/logout}">> logout <</a></td>
     </tr>
+    <div sec:authentication="principal.authorities"></div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">Text visible to user.</div>
     <tr>
         <td align="center" colspan="4">
             <a th:href="@{/register}">Add user</a>

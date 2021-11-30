@@ -1,6 +1,5 @@
 package com.springboot.mvc.taskwebapp.springboottaskwebapp.security;
 
-import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.UserDetailsServiceImpl;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,10 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
-
-    @Autowired
     private UserServiceImpl userServiceImpl;
+
 
     @Bean
     @Override
@@ -53,8 +50,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
 //                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "index-page", "/css/*", "/js/*").permitAll()
-                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/").permitAll()
+                .antMatchers("/employee", "/tasks/{id}/edit", "/employee/{id}/tasks").hasAnyRole("ADMIN, TEAMLEAD, EMPLOYEE")
+                .antMatchers("/**").hasRole("TEAMLEAD")
+                .antMatchers("/**", "/employee/admin", "/employee/admin/**").hasRole("ADMIN")
+
                 .anyRequest()
                 .authenticated()
                 .and()

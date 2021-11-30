@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -19,10 +21,12 @@
     <tr>
         <td align="center" colspan="7">
             <a th:href="@{/employee}">My profile</a>
-            |
-            <a th:href="@{/register}">Add user</a>
-            |
-            <a th:href="@{/employees}">User list</a>
+            <div sec:authorize access="hasAnyRole('ADMIN', 'TEAMLEAD')">
+                |
+                <a th:href="@{/register}">Add user</a>
+                |
+                <a th:href="@{/employees}">User list</a>
+            </div>
         </td>
     </tr>
     <tr>

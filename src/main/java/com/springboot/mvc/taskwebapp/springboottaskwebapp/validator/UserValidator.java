@@ -22,7 +22,7 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         UserEntity user = (UserEntity) target;
 
-        if (userService.findByUsername(user.getUsername()) != null) {
+        if (userService.findByUsername(user.getUsername()) != null && user.getId() == 0) {
             errors.rejectValue("username",
                     "Duplicate.userForm.username",
                     "Such username already exists.");
