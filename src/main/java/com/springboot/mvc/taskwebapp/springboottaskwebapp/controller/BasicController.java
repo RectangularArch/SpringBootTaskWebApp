@@ -4,6 +4,7 @@ import com.springboot.mvc.taskwebapp.springboottaskwebapp.entity.EmployeeEntity;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.entity.UserEntity;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.EmployeeService;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.UserService;
+import com.springboot.mvc.taskwebapp.springboottaskwebapp.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +16,13 @@ import javax.validation.Valid;
 @Controller
 public class BasicController {
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private UserValidator userValidator;
 
     @GetMapping("/")
     public String getIndex() {
@@ -35,7 +39,7 @@ public class BasicController {
 
     @PostMapping("/register")
     public String registerNewUser(@ModelAttribute(value = "user") @Valid UserEntity newUser, BindingResult bindingResultNewUser, @ModelAttribute(value = "employee") @Valid EmployeeEntity newEmployee, BindingResult bindingResultNewEmployee) {
-        //userValidator.validate(newUser, bindingResult);
+        userValidator.validate(newUser, bindingResultNewUser);
 
         if (bindingResultNewUser.hasErrors() || bindingResultNewEmployee.hasErrors()) {
             return "register-page";

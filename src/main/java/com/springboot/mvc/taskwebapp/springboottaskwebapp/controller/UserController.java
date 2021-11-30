@@ -8,6 +8,7 @@ import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.EmployeeServic
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.SecurityService;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.TaskService;
 import com.springboot.mvc.taskwebapp.springboottaskwebapp.service.UserService;
+import com.springboot.mvc.taskwebapp.springboottaskwebapp.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,9 @@ public class UserController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private UserValidator userValidator;
 
     @GetMapping("/employee")
     public String getEmployee(Model model, @Autowired Principal principal) {
@@ -72,11 +76,10 @@ public class UserController {
                            BindingResult bindingResultNewUser,
                            @ModelAttribute(value = "employee") @Valid EmployeeEntity employee,
                            BindingResult bindingResultNewEmployee) {
-        //userValidator.validate(newUser, bindingResult);
+        userValidator.validate(user, bindingResultNewUser);
 
         if (bindingResultNewUser.hasErrors() || bindingResultNewEmployee.hasErrors()) {
             return "edit-user-page";
-            //return "redirect:/{id}/edit";
         }
 
         user.setEmployee(employee);
