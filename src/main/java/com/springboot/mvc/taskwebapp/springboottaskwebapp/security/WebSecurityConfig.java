@@ -10,18 +10,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+/**
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserServiceImpl userServiceImpl;
-
 
     @Bean
     @Override
@@ -31,30 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userServiceImpl/*userDetailsServiceImpl*/);
+        auth.userDetailsService(userServiceImpl);
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/", "index-page", "/css/*", "/js/*").permitAll()
-//                .antMatchers("/admin").hasRole("ADMIN")
-//                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
-//                .antMatchers("/").permitAll()
-//                .and().formLogin();
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
 //                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/employee", "/tasks/{id}/edit", "/employee/{id}/tasks").hasAnyRole("ADMIN, TEAMLEAD, EMPLOYEE")
                 .antMatchers("/**").hasRole("TEAMLEAD")
                 .antMatchers("/**", "/employee/admin", "/employee/admin/**").hasRole("ADMIN")
-
                 .anyRequest()
                 .authenticated()
                 .and()

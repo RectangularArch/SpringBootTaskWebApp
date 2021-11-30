@@ -4,6 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ *  Object that represents a Task.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
 
 @Entity
 @Table(name = "task")
@@ -28,17 +34,22 @@ public class TaskEntity {
     @Column(name = "status")
     private String status;
 
-    @ManyToOne(/*cascade = CascadeType.ALL, */)
+    @ManyToOne()
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employee;
 
     public TaskEntity() {}
 
-    public TaskEntity(String head, String body, String priority, String status) {
+    public TaskEntity(String head,
+                      String body,
+                      String priority,
+                      String status,
+                      EmployeeEntity employee) {
         this.head = head;
         this.body = body;
         this.priority = priority;
         this.status = status;
+        this.employee = employee;
     }
 
     public int getId() {
@@ -73,19 +84,19 @@ public class TaskEntity {
         this.priority = priority;
     }
 
-    public EmployeeEntity getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(EmployeeEntity employee) {
-        this.employee = employee;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public EmployeeEntity getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmployeeEntity employee) {
+        this.employee = employee;
     }
 }

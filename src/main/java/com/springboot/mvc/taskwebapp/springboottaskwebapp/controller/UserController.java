@@ -12,11 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
+
+/**
+ *  Controller for {@link UserEntity}'s pages.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
 
 @Controller
 public class UserController {
@@ -31,18 +36,11 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private SecurityService securityService;
-
-    @Autowired
     private UserValidator userValidator;
 
     @GetMapping("/employee")
     public String getEmployee(Model model, @Autowired Principal principal) {
         UserEntity user = (UserEntity) userService.loadUserByUsername(principal.getName());
-
-//        if (user.getAuthorities().equals(userService.getApplicationUser(1).getAuthorities())) {
-//            return "redirect:/admin/employee";
-//        }
 
         EmployeeEntity employee = user.getEmployee();
         model.addAttribute("employee", employee);
@@ -56,18 +54,17 @@ public class UserController {
         List<TaskEntity> allTasks = user.getEmployee().getTasks();
         model.addAttribute("allTasks", allTasks);
 
-        for (RoleEntity item : user.getRoles()) {
-            if (item.getRole().equals("ROLE_EMPLOYEE")) {
-                return "redirect:/employee";
-            }
-        }
+//        for (RoleEntity item : user.getRoles()) {
+//            if (item.getRole().equals("ROLE_EMPLOYEE")) {
+//                return "redirect:/employee";
+//            }
+//        }
 
         return "all-tasks-page";
     }
 
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") int id) {
-
         model.addAttribute("user", userService.findById(id));
         model.addAttribute("employee", employeeService.getEmployee(id));
 
@@ -87,11 +84,8 @@ public class UserController {
         }
 
         user.setEmployee(employee);
-
         employeeService.saveEmployee(employee);
-        userService.save(user);
-
-        //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
+        userService.saveUser(user);
 
         return "redirect:/employees";
     }
@@ -107,23 +101,19 @@ public class UserController {
     public String addTaskToEmployee(@ModelAttribute(value = "task") @Valid TaskEntity newTask,
                            BindingResult bindingResultNewTask,
                                     @PathVariable("employeeId") int employeeId, Model model) {
-        //userValidator.validate(newUser, bindingResult);
-
         if (bindingResultNewTask.hasErrors()) {
             model.addAttribute("employee", employeeService.getEmployee(employeeId));
             return "new-task-page";
         }
+
         newTask.setEmployee(employeeService.getEmployee(employeeId));
         taskService.saveTask(newTask);
-
-        //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
 
         return "redirect:/employee/{employeeId}/tasks";
     }
 
     @GetMapping("/tasks/{id}/edit")
     public String editEmployeeTask(Model model, @PathVariable("id") int id) {
-
         model.addAttribute("task", taskService.getTask(id));
         return "edit-task-page";
     }
@@ -139,7 +129,7 @@ public class UserController {
         TaskEntity task = taskService.getTask(id);
         newTask.setEmployee(task.getEmployee());
         employeeId = task.getEmployee().getId();
-        taskService.saveTask(newTask);//securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
+        taskService.saveTask(newTask);
 
         return "redirect:/employee/" + employeeId + "/tasks";
     }
@@ -150,10 +140,4 @@ public class UserController {
         return "redirect:/employees";
     }
 
-    @DeleteMapping ("/tasks/{id}")
-    public String deleteTask(@PathVariable int id) {
-        int employeeId = taskService.getTask(id).getEmployee().getId();
-        taskService.deleteTask(id);
-        return "redirect:/employee/" + employeeId + "/tasks";
-    }
 }

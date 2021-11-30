@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ *  Controller for Registration, Login and Index pages.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
+
 @Controller
 public class BasicController {
     @Autowired
@@ -33,12 +40,14 @@ public class BasicController {
     public String registerNewUser(Model model) {
         model.addAttribute("user", new UserEntity());
         model.addAttribute("employee", new EmployeeEntity());
-
         return "register-page";
     }
 
     @PostMapping("/register")
-    public String registerNewUser(@ModelAttribute(value = "user") @Valid UserEntity newUser, BindingResult bindingResultNewUser, @ModelAttribute(value = "employee") @Valid EmployeeEntity newEmployee, BindingResult bindingResultNewEmployee) {
+    public String registerNewUser(@ModelAttribute(value = "user") @Valid UserEntity newUser,
+                                  BindingResult bindingResultNewUser,
+                                  @ModelAttribute(value = "employee") @Valid EmployeeEntity newEmployee,
+                                  BindingResult bindingResultNewEmployee) {
         userValidator.validate(newUser, bindingResultNewUser);
 
         if (bindingResultNewUser.hasErrors() || bindingResultNewEmployee.hasErrors()) {
@@ -46,23 +55,14 @@ public class BasicController {
         }
 
         newUser.setEmployee(newEmployee);
-
         employeeService.saveEmployee(newEmployee);
-        userService.save(newUser);
-
-        //securityService.autoLogin(newUser.getUsername(), newUser.getPasswordConfirmation());
+        userService.saveUser(newUser);
 
         return "redirect:/employees";
     }
 
     @GetMapping("/login")
-    public String login(Model model, String err, String logout) {
-        if (err != null) {
-            model.addAttribute("err", "Username or password is incorrect.");
-        }
-        if (logout != null) {
-            model.addAttribute("message", "Logged out successfully.");
-        }
+    public String login() {
         return "login-page";
     }
 }

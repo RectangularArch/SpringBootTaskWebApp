@@ -6,6 +6,13 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Object that represents an Employee.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "employee")
 public class EmployeeEntity {
@@ -44,20 +51,18 @@ public class EmployeeEntity {
 
     public EmployeeEntity() {}
 
-    public EmployeeEntity(String firstname, String surname, String middlename, String department, String position) {
+    public EmployeeEntity(String firstname,
+                          String surname,
+                          String middlename,
+                          String department,
+                          String position,
+                          List<TaskEntity> tasks) {
         this.firstname = firstname;
         this.surname = surname;
         this.middlename = middlename;
         this.department = department;
         this.position = position;
-    }
-
-    public void addTaskToEmployee(TaskEntity task) {
-        if (tasks == null) {
-            tasks = new ArrayList<>();
-        }
-        tasks.add(task);
-        task.setEmployee(this);
+        this.tasks = tasks;
     }
 
     public int getId() {
@@ -114,5 +119,13 @@ public class EmployeeEntity {
 
     public void setTasks(List<TaskEntity> tasks) {
         this.tasks = tasks;
+    }
+
+    public void addTaskToEmployee(TaskEntity task) {
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
+        tasks.add(task);
+        task.setEmployee(this);
     }
 }

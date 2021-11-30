@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+/**
+ *  Implementation of {@link UserService}.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -31,11 +37,11 @@ public class UserServiceImpl implements UserService{
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void save(UserEntity user) {
+    public void saveUser(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Set<RoleEntity> roles = new HashSet<>();
-        roles.add(roleRepository.getById(3));
+        roles.add(roleRepository.getById(3)); //Set ROLE_EMPLOYEE with its PERMISSIONS to user as default authorities.
 
         user.setRoles(roles);
         userRepository.save(user);
@@ -60,13 +66,8 @@ public class UserServiceImpl implements UserService{
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
 
-        //-----------
         userEntity.get().setAuthorities(grantedAuthorities);
         return userEntity.get();
-        //-----------
-//        ApplicationUserDetails applicationUserDetails
-//                = new ApplicationUserDetails(userEntity.get(), grantedAuthorities);
-//        return applicationUserDetails;
     }
 
     @Override

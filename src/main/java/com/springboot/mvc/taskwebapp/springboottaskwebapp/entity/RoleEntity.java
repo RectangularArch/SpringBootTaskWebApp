@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *  Object that represents a Role.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "role")
 public class RoleEntity {
@@ -11,16 +18,17 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int Id;
+
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(/*cascade = CascadeType.ALL, */fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<UserEntity> users;
 
-    @ManyToMany(/*cascade = CascadeType.ALL, */fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
@@ -28,22 +36,12 @@ public class RoleEntity {
 
     public RoleEntity() {}
 
-    public RoleEntity(String role) {
+    public RoleEntity(String role,
+                      Set<UserEntity> users,
+                      Set<PermissionEntity> permissions) {
         this.role = role;
-    }
-
-    public void addPermissionToRole(PermissionEntity permission) {
-        if (permissions == null) {
-            permissions = new HashSet<>();
-        }
-        permissions.add(permission);
-    }
-
-    public void addUserToRole(UserEntity user) {
-        if (users == null) {
-            users = new HashSet<>();
-        }
-        users.add(user);
+        this.users = users;
+        this.permissions = permissions;
     }
 
     public int getId() {
@@ -76,5 +74,19 @@ public class RoleEntity {
 
     public void setPermissions(Set<PermissionEntity> permissions) {
         this.permissions = permissions;
+    }
+
+    public void addPermissionToRole(PermissionEntity permission) {
+        if (permissions == null) {
+            permissions = new HashSet<>();
+        }
+        permissions.add(permission);
+    }
+
+    public void addUserToRole(UserEntity user) {
+        if (users == null) {
+            users = new HashSet<>();
+        }
+        users.add(user);
     }
 }

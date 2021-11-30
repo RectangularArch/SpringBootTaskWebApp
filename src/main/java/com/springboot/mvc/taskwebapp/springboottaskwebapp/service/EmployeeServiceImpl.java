@@ -7,6 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  Implementation of {@link EmployeeService}.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 

@@ -4,14 +4,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+/**
+ *  Object that represents a User.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
 
 @Entity
 @Table(name = "user")
@@ -33,23 +37,23 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "is_account_non_expired")
     private boolean isAccountNonExpired;
+
     @Column(name = "is_account_non_locked")
     private boolean isAccountNonLocked;
+
     @Column(name = "is_credentials_non_expired")
     private boolean isCredentialsNonExpired;
+
     @Column(name = "is_enabled")
     private boolean isEnabled;
 
     @Transient
-    //@NotBlank(message = "{Required}")
     private String passwordConfirmation;
 
-    //-----------
     @Transient
     private Set<? extends GrantedAuthority> grantedAuthorities;
-    //-----------
 
-    @ManyToMany(/*cascade = CascadeType.ALL, */fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -82,21 +86,6 @@ public class UserEntity implements UserDetails {
         this.isEnabled = isEnabled;
         this.grantedAuthorities = grantedAuthorities;
         this.employee = employee;
-    }
-
-    public void addRoleToUser(RoleEntity role) {
-        if (roles == null) {
-            roles = new HashSet<>();
-        }
-        roles.add(role);
-    }
-
-    public Set<RoleEntity> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
     }
 
     public int getId() {
@@ -169,15 +158,6 @@ public class UserEntity implements UserDetails {
         this.passwordConfirmation = passwordConfirmation;
     }
 
-    public EmployeeEntity getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(EmployeeEntity employee) {
-        this.employee = employee;
-    }
-
-    //-----------
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
@@ -186,5 +166,28 @@ public class UserEntity implements UserDetails {
     public void setAuthorities(Set<? extends GrantedAuthority> grantedAuthorities) {
         this.grantedAuthorities = grantedAuthorities;
     }
-    //-----------
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+
+    public EmployeeEntity getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmployeeEntity employee) {
+        this.employee = employee;
+    }
+
+    public void addRoleToUser(RoleEntity role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
+    }
 }

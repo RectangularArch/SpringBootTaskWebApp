@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *  Object that represents a Permission.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
+
 @Entity
 @Table(name = "permission")
 public class PermissionEntity {
@@ -11,10 +18,11 @@ public class PermissionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int Id;
+
     @Column(name = "permission")
     private String permission;
 
-    @ManyToMany(/*cascade = CascadeType.ALL, */fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "role_permission",
             joinColumns = @JoinColumn(name = "permission_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -22,15 +30,10 @@ public class PermissionEntity {
 
     public PermissionEntity() {}
 
-    public PermissionEntity(String permission) {
+    public PermissionEntity(String permission,
+                            Set<RoleEntity> roles) {
         this.permission = permission;
-    }
-
-    public void addRoleToPermission(RoleEntity role) {
-        if (roles == null) {
-            roles = new HashSet<>();
-        }
-        roles.add(role);
+        this.roles = roles;
     }
 
     public int getId() {
@@ -55,5 +58,12 @@ public class PermissionEntity {
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public void addRoleToPermission(RoleEntity role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
     }
 }

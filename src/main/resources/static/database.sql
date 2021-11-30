@@ -61,11 +61,6 @@ CREATE TABLE my_db.role_permission (
     UNIQUE (role_id, permission_id)
                                    );
 -- Insert basic data
-INSERT INTO my_db.employee VALUES (1, 'Андрей', 'Толстопятов', 'Олегович', 'IT', 'Системный администратор');
-INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Задача 1', 'Сделать что-то хорошее', 'Low', 'In Progress', 1);
-INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Задача 2', 'Сделать что-то плохое', 'Low', 'In Progress', 1);
-INSERT INTO my_db.user VALUES (1, 'admin', '$2a$10$LaUT71g.ofUoHT1KAoL9iOcW2COnAU2G7rldUSt3PbbFZmg4BNOvm', 1, 1, 1, 1, 1);
-
 INSERT INTO my_db.role VALUES (1, 'ROLE_ADMIN');
 INSERT INTO my_db.role VALUES (2, 'ROLE_TEAMLEAD');
 INSERT INTO my_db.role VALUES (3, 'ROLE_EMPLOYEE');
@@ -76,8 +71,6 @@ INSERT INTO my_db.permission VALUES (3, 'EMPLOYEE_READ');
 INSERT INTO my_db.permission VALUES (4, 'EMPLOYEE_WRITE');
 INSERT INTO my_db.permission VALUES (5, 'TASK_READ');
 INSERT INTO my_db.permission VALUES (6, 'TASK_WRITE');
-
-INSERT INTO my_db.user_role VALUES (1, 1);
 
 INSERT INTO my_db.role_permission VALUES (1, 1);
 INSERT INTO my_db.role_permission VALUES (1, 2);
@@ -93,3 +86,32 @@ INSERT INTO my_db.role_permission VALUES (2, 6);
 
 INSERT INTO my_db.role_permission VALUES (3, 5);
 INSERT INTO my_db.role_permission VALUES (3, 6);
+
+-- Insert ROLE_ADMIN user
+INSERT INTO my_db.employee VALUES (1, 'Andrey', 'Tolstopyatov', 'Olegovich', 'IT', 'Java Developer');
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Task 1', 'Do smth admins and interesting.', 'Low', 'In Progress', 1);
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Task 2', 'Do smth admins and boring.', 'Hight', 'In Progress', 1);
+INSERT INTO my_db.user VALUES (1, 'admin', '$2a$10$LaUT71g.ofUoHT1KAoL9iOcW2COnAU2G7rldUSt3PbbFZmg4BNOvm', 1, 1, 1, 1, 1);
+
+INSERT INTO my_db.user_role VALUES (1, 1);
+
+-- Insert ROLE_TEAMLEAD user
+INSERT INTO my_db.employee VALUES (1, 'Kirill', 'Snyatko', 'Sergeevich', 'IT', 'Java Developer/Teamlead');
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Task 1', 'Do smth teamleads and interesting.', 'Low', 'In Progress', 2);
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Task 2', 'Do smth teamleads and boring.', 'Hight', 'In Progress', 2);
+INSERT INTO my_db.user VALUES (2, 'teamlead', '$2a$10$LaUT71g.ofUoHT1KAoL9iOcW2COnAU2G7rldUSt3PbbFZmg4BNOvm', 1, 1, 1, 1, 1);
+
+INSERT INTO my_db.user_role VALUES (2, 2);
+
+-- Insert ROLE_EMPLOYEE user
+INSERT INTO my_db.employee VALUES (1, 'Sergey', 'Fedorenko', 'Pavlovich', 'IT', 'Java Developer');
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Task 1', 'Do smth Java-crazy.', 'Low', 'In Progress', 3);
+INSERT INTO my_db.task (header, body, priority, status, employee_id) VALUES ('Task 2', 'Do smth Java-crazy again.', 'Hight', 'In Progress', 3);
+INSERT INTO my_db.user VALUES (3, 'employee', '$2a$10$LaUT71g.ofUoHT1KAoL9iOcW2COnAU2G7rldUSt3PbbFZmg4BNOvm', 1, 1, 1, 1, 1);
+
+INSERT INTO my_db.user_role VALUES (3, 3);
+
+
+
+
+

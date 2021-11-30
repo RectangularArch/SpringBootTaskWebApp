@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *  Controller for {@link EmployeeEntity}'s pages.
+ *
+ * @author Andrey Tolstopyatov
+ * @version 1.0
+ */
+
 @Controller
 public class EmployeeController {
     @Autowired
@@ -30,14 +37,12 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     public EmployeeEntity addNewEmployee(@RequestBody EmployeeEntity employee) {
-        //Автоматическая конвертация json в Employee
         employeeService.saveEmployee(employee);
         return employee;
     }
 
     @PutMapping("/employees")
     public EmployeeEntity updateEmployee(@RequestBody EmployeeEntity employee) {
-        //Автоматическая конвертация json в Employee
         employeeService.saveEmployee(employee);
         return employee;
     }
