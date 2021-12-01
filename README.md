@@ -4,7 +4,7 @@
 
 A simple application for setting tasks for employees. The ability to add new users, add and edit tasks has been implemented.
 
-Frameworks and tools: Spring Boot, Spring Security, Hibernate, Thymeleaf, Mysql.
+Frameworks and tools: Spring Boot, Spring Security, Hibernate, Thymeleaf, MySQL.
 
 ![alt tag](https://github.com/RectangularArch/Image-storage/blob/master/SpringBootTaskWebApp/1-png.png)​
 
