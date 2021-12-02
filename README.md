@@ -9,7 +9,7 @@ Frameworks and tools: Spring Boot, Spring Security, Hibernate, Thymeleaf, MySQL.
 ![alt tag](https://github.com/RectangularArch/Image-storage/blob/master/SpringBootTaskWebApp/1-png.png)​
 
 Before starting the program, make sure that you have established a connection with the database and create 
-the necessary tables and default data by using "src/main/resources/static/database.sql" script.
+the necessary tables and default data by using `src/main/resources/static/database.sql` script.
 
 ![alt tag](https://github.com/RectangularArch/Image-storage/blob/master/SpringBootTaskWebApp/2-png.png)​
 ![alt tag](https://github.com/RectangularArch/Image-storage/blob/master/SpringBootTaskWebApp/3-png.png)​
